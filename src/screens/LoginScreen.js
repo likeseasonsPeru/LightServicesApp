@@ -17,7 +17,7 @@ const LoginScreen = ({navigation}) => {
         if(validation.length > 0) {
             Alert.alert("Complete correctamente los campos")
         }
-        navigation.replace("Home")
+        navigation.replace("Tabs")
     }
     return (
         <View style={styles.container}>

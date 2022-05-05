@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useForm } from '../hooks/useForm';
 import { CheckBox } from '@rneui/themed';
+import CustomSwitch from '../components/CustomSwitch';
 
 const RegisterScreen = ({navigation}) => {
-    const [isEmpleador, setIsEmpleador] = useState(false);
     const [checked, isChecked] = useState(false);
     const {email, name, lastname, password, confirmPassword, onChange} = useForm({
       email: "",
@@ -26,6 +26,13 @@ const RegisterScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Register</Text>
+            <CustomSwitch
+                opt1={ 'Inquilino' }
+                opt2={ 'Arrendador' }
+                onSelectSwitch={ (val) => {
+                    console.log(val)
+                }}
+            />
             <View>
                 <Text style={styles.label}>Nombres</Text>
                 <TextInput 
