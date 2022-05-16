@@ -2,10 +2,10 @@ const AuthReducer  = (state, action) => {
     switch (action.type) {
         case "SIGNIN":
             return {
-                user: state.payload.user,
+                user: action.payload.user,
                 status: true,
                 message: "authenticated",
-                token: state.payload.token
+                token: action.payload.token
             }
         case "SIGNOUT":
             return {

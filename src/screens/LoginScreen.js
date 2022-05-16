@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, View, StyleSheet, TextInput, Platform, TouchableOpacity, Alert } from 'react-native';
 import {useForm} from '../hooks/useForm';
 import { CheckBox } from '@rneui/themed';
+import { AuthContext } from '../context/AuthContext';
 
 const LoginScreen = ({navigation}) => {
+
+    const {login}  = useContext(AuthContext)
+
     const [checked, isChecked] = useState(false);
     const {email, password, onChange} = useForm({
         email: '',
         password: '',
       });
-    const onLogin = () => {
+    const onLogin = async() => {
         console.log({email, password})
         const data = { email, password};
         const validation = Object.values(data).filter((v) => v === "");
@@ -17,7 +21,13 @@ const LoginScreen = ({navigation}) => {
         if(validation.length > 0) {
             Alert.alert("Complete correctamente los campos")
         }
-        navigation.replace("Tabs")
+        try {
+            await login({email, password})
+            navigation.replace("Tabs")
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
     return (
         <View style={styles.container}>
