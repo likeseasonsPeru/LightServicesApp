@@ -23,7 +23,6 @@ const LoginScreen = ({navigation}) => {
         }
         try {
             await login({email, password})
-            // navigation.replace("Tabs")
         } catch (error) {
             console.log(error)
         }

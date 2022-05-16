@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react'
 import { Alert } from 'react-native';
-import { onSignIn } from '../services/auth';
+import { onSignIn, onSignUp } from '../services/auth';
 import AuthReducer from './AuthReducer'
 
 export const AuthContext = createContext({});
@@ -18,7 +18,6 @@ export const AuthProvider = ({children}) => {
     const login = async (dts) => {
         try {
             const {data} = await onSignIn(dts)
-            console.log(data)
             dispatch({
                 type: "SIGNIN",
                 payload: {
@@ -31,9 +30,19 @@ export const AuthProvider = ({children}) => {
           console.log("Error :", error);
         }
     }
+    
+    const register = async (dts) => {
+        try {
+            const {data} = await onSignUp(dts)
+            console.log(data);
+        } catch (error) {
+          Alert.alert("Register Incorrecto");
+          console.log("Error :", error);
+        }
+    }
 
     return (
-        <AuthContext.Provider value={{ ...authState, login }}>
+        <AuthContext.Provider value={{ ...authState, dispatch, login, register }}>
             {children}
         </AuthContext.Provider>
     )

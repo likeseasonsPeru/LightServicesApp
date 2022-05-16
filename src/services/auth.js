@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+// import { BASE_URL } from "../utils/constants";
 
 
 export const onSignIn = async (dts) => {
@@ -8,6 +8,6 @@ export const onSignIn = async (dts) => {
 }
 
 export const onSignUp = async (dts) => {
-    const {data} = await axios.post(`${BASE_URL}/register`. dts);
+    const {data} = await axios.post(`http://localhost:2022/register`, dts);
     return data;
 }

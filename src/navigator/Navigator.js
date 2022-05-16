@@ -9,7 +9,6 @@ const Stack = createNativeStackNavigator();
 
 export const Navigator = ()=> {
   const {token} = useContext(AuthContext)
-  console.log(token, "token")
   return (
       <Stack.Navigator screenOptions={{
         headerShown: false,

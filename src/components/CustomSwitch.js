@@ -7,7 +7,7 @@ const CustomSwitch = ({
   opt2,
   onSelectSwitch
 }) => {
-  const [getSelectionMode, setSelectionMode] = useState('inquilino')
+  const [getSelectionMode, setSelectionMode] = useState('Inquilino')
   const updatedSwitchData = async (val) => {
     setSelectionMode(val)
     onSelectSwitch(val)
@@ -26,9 +26,9 @@ const CustomSwitch = ({
         style={ styles.container }>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={ () => updatedSwitchData('inquilino') }
+          onPress={ () => updatedSwitchData('Inquilino') }
           style={
-            getSelectionMode === 'inquilino' ? styles.status1 : styles.status2
+            getSelectionMode === 'Inquilino' ? styles.status1 : styles.status2
           }>
           <Text
             style={ styles.text }>
@@ -37,8 +37,8 @@ const CustomSwitch = ({
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={ () => updatedSwitchData('arrendador') }
-          style={ getSelectionMode === 'inquilino' ? styles.status2 : styles.status1 } >
+          onPress={ () => updatedSwitchData('Arrendador') }
+          style={ getSelectionMode === 'Inquilino' ? styles.status2 : styles.status1 } >
           <Text
             style={ styles.text }>
             { opt2 }

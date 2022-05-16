@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useForm } from '../hooks/useForm';
 import { CheckBox } from '@rneui/themed';
 import CustomSwitch from '../components/CustomSwitch';
+import { AuthContext } from '../context/AuthContext';
 
 const RegisterScreen = ({navigation}) => {
+
+    const { register } = useContext(AuthContext)
+
     const [checked, isChecked] = useState(false);
-    const {email, name, lastname, password, confirmPassword, onChange} = useForm({
+    const {email, name, lastname, password, confirmPassword, role, onChange} = useForm({
       email: "",
       name: "",
       lastname: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      role: "Inquilino"
     })
 
-    const onRegister = () => {
+    console.log(role, "role")
+
+    const onRegister = async () => {
         const data = { email, name, lastname, password, confirmPassword};
         const validation = Object.values(data).filter((v) => v === "");
         console.log(validation.length > 0, Object.values(data))
         if(validation.length > 0) {
             Alert.alert("Complete correctamente los campos")
         }
+        try {
+            await register({username: `${name} ${lastname}`, email, password, role})
+            navigation.replace('Login');
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     return (
@@ -30,7 +44,7 @@ const RegisterScreen = ({navigation}) => {
                 opt1={ 'Inquilino' }
                 opt2={ 'Arrendador' }
                 onSelectSwitch={ (val) => {
-                    console.log(val)
+                    onChange(val, "role")
                 }}
             />
             <View>
@@ -133,7 +147,7 @@ const RegisterScreen = ({navigation}) => {
                 </View>
                 
                 <View>
-                    <TouchableOpacity activeOpacity={0.8} style={styles.containerToRegister} onPress={() => navigation.replace("Login")}>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.containerToRegister} onPress={() => navigation.replace('Login') } >
                         <Text style={styles.btnToRegister}>Login</Text>
                     </TouchableOpacity>
                 </View>

@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
   const {user} = useContext(AuthContext)
-  console.log(user.role);
+  
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }, ({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -34,7 +34,7 @@ const Tabs = () => {
         })}>
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
-          { user.role === "Inquilino" && (
+          { user.role === "Arrendador" && (
             <>
               <Tab.Screen name="Admin" component={AdminScreen} />
             </>
