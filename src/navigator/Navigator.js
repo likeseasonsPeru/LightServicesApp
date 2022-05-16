@@ -1,13 +1,15 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import Tabs from './Tabs.Navigator';
+import { AuthContext } from '../context/AuthContext';
 
 const Stack = createNativeStackNavigator();
 
 export const Navigator = ()=> {
+  const {token} = useContext(AuthContext)
+  console.log(token, "token")
   return (
       <Stack.Navigator screenOptions={{
         headerShown: false,
@@ -15,9 +17,17 @@ export const Navigator = ()=> {
           backgroundColor: 'white',
         },
       }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Tabs" component={Tabs} />
+        {
+          token === null ? (
+            <>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Register" component={RegisterScreen} />
+            </>
+          ) : (
+            <Stack.Screen name="Tabs" component={Tabs} />
+          )
+        }
+        
       </Stack.Navigator>
   );
 }

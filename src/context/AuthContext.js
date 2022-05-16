@@ -9,6 +9,7 @@ export const authInitialState = {
     user: null,
     status: false,
     message: "not-authenticated",
+    token: null,
 }
 
 export const AuthProvider = ({children}) => {
@@ -32,7 +33,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{ authState, login }}>
+        <AuthContext.Provider value={{ ...authState, login }}>
             {children}
         </AuthContext.Provider>
     )
